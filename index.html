@@ -10,6 +10,11 @@
         <title>Graduation notes</title>
     </head>
     <body>
+        <!-- Add audio element (hidden) -->
+        <audio id="bgMusic" loop>
+            <source src="Blue.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
         <p class="instruction">Click the heart!</p>
         <div class="container">
             <label>
@@ -45,6 +50,26 @@
         <script src="jquery.js"></script>
         <script src="jquery2.1.js"></script>
         <script defer src="valentine-confession.js"></script>
+        <script>
+            // Get the audio element
+            const bgMusic = document.getElementById('bgMusic');
+            
+            // Play music when the page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add a click event listener to the document
+                document.addEventListener('click', function startMusic() {
+                    bgMusic.play();
+                    // Remove the click event listener after first click
+                    document.removeEventListener('click', startMusic);
+                }, { once: true });
+            });
+
+            // Stop music when user leaves the page
+            window.addEventListener('beforeunload', function() {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            });
+        </script>
     </body>
 </html>
 
